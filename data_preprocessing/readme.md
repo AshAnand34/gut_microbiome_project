@@ -70,7 +70,7 @@ The script:
 ### Usage
 
 ```bash
-python generate_dna_embeddings.py
+uv run generate_dna_embeddings.py
 ```
 
 ### Configuration
