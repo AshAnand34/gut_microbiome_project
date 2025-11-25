@@ -4,6 +4,7 @@ Unified Data Loading Pipeline
 This module provides a complete pipeline for loading microbiome data:
 1. Sample CSV (SID, label) → Artifacts (DNA CSVs, Embeddings H5) → PyTorch DataLoader
 2. Handles artifact generation, caching, and efficient data loading
+3. Generates per sample embeddings from prokbert_embeddings
 """
 
 from pathlib import Path
@@ -60,6 +61,10 @@ def get_default_paths(config: dict = None) -> dict:
         'embeddings_h5': Path(data_config.get(
             'embeddings_h5',
             'data_preprocessing/dna_embeddings/prokbert_embeddings.h5'
+        )),
+        'microbiome_embeddings_h5':Path(data_config.get(
+            'microbiome_embeddings_h5',
+            'data_preprocessing/microbiome_embeddings/microbiome_embeddings.h5'
         )),
         'model_name': data_config.get(
             'embedding_model',
@@ -802,7 +807,7 @@ def get_dataloader(
 
 if __name__ == "__main__":
     # Example usage
-    sample_csv = Path("data_preprocessing/datasets/sample_data_test.csv")
+    sample_csv = Path("data_preprocessing/datasets/sample_data.csv")
     
     try:
         print("Creating DataLoader...")
